@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-var Paymongo = require('paymongo');
+var Paymongo = require('Paymongo');
 
 const paymongo = new Paymongo(process.env.SECRET_KEY || "sk_test_amdL4FT9xNotTy5YSV3LsZRS");
 
