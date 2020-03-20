@@ -9,8 +9,8 @@ router.post("/", function(request, response) {
     data: {
       attributes: {
         number: request.body.number,
-        exp_month: request.body.expiry,
-        exp_year: request.body.year,
+        exp_month: parseInt(request.body.expiry),
+        exp_year: parseInt(request.body.year),
         cvc: request.body.cvc
       }
     }
@@ -51,6 +51,7 @@ router.post("/", function(request, response) {
   })
   .catch(error => {
     console.log(error);
+    response.json(error);
   });
 });
 
