@@ -38,7 +38,7 @@ router.post("/", function(request, response) {
               id: generated_token,
               type: 'token'
             }
-          }
+          } 
         }
       })
       .then(res => {
