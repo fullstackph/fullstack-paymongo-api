@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 var Paymongo = require('Paymongo');
 
-const paymongo = new Paymongo("sk_test_amdL4FT9xNotTy5YSV3LsZRS");
+const paymongo = new Paymongo(process.env.SECRET_KEY || "sk_test_amdL4FT9xNotTy5YSV3LsZRS");
 
 router.post("/", function(request, response) {
   const tokenData = {
