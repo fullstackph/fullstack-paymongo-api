@@ -23,7 +23,6 @@ router.post("/", function(request, response) {
   paymongo
   .createToken(tokenData)
   .then(res => {
-    console.log(res);
     generated_token = res.data.id;
     const amount = request.body.paymentAmount;
     const decimal = request.body.decimal;
@@ -46,8 +45,6 @@ router.post("/", function(request, response) {
         }
       })
       .then(res => {
-        console.log('city', request.body.city)
-        console.log('country', request.body.country)
         response.json(res);
       })
       .catch(error => {
