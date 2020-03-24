@@ -5,13 +5,17 @@ var Paymongo = require('paymongo');
 const paymongo = new Paymongo(process.env.SECRET_KEY || "sk_test_amdL4FT9xNotTy5YSV3LsZRS");
 
 router.post("/", function(request, response) {
-  const tokenData = {
+  const tokenData = { 
     data: {
       attributes: {
+        billing: {
+          name: request.body.name,
+          email: request.body.email,
+        },
         number: request.body.number,
         exp_month: parseInt(request.body.expiry),
         exp_year: parseInt(request.body.year),
-        cvc: request.body.cvc
+        cvc: request.body.cvc,
       }
     }
   }
@@ -42,9 +46,12 @@ router.post("/", function(request, response) {
         }
       })
       .then(res => {
+        console.log('city', request.body.city)
+        console.log('country', request.body.country)
         response.json(res);
       })
       .catch(error => {
+        console.log(error);
         const data = { error : error.message }
         response.json(data);
       });
