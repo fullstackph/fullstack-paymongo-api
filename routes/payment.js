@@ -23,6 +23,7 @@ router.post("/", function(request, response) {
   paymongo
   .createToken(tokenData)
   .then(res => {
+    console.log(res);
     generated_token = res.data.id;
     const amount = request.body.paymentAmount;
     const decimal = request.body.decimal;
@@ -45,17 +46,19 @@ router.post("/", function(request, response) {
         }
       })
       .then(res => {
-        const data = { error: false, res }
-        response.json(data);
+        console.log('city', request.body.city)
+        console.log('country', request.body.country)
+        response.json(res);
       })
       .catch(error => {
+        console.log(error);
         const data = { error : error.message }
         response.json(data);
       });
   })
   .catch(error => {
-    const data = { error : error.message }
-    response.json(data);
+    console.log(error);
+    response.json(error);
   });
 });
 
