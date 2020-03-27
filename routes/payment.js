@@ -45,17 +45,17 @@ router.post("/", function(request, response) {
         }
       })
       .then(res => {
-        response.json(res);
+        const data = { error: false, res }
+        response.json(data);
       })
       .catch(error => {
-        console.log(error);
         const data = { error : error.message }
         response.json(data);
       });
   })
   .catch(error => {
-    console.log(error);
-    response.json(error);
+    const data = { error : error.message }
+    response.json(data);
   });
 });
 
