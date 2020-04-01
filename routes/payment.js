@@ -5,6 +5,10 @@ var Paymongo = require('paymongo');
 const paymongo = new Paymongo(process.env.SECRET_KEY || "sk_test_amdL4FT9xNotTy5YSV3LsZRS");
 
 router.post("/", function(request, response) {
+
+  const expiry = request.body.expiry;
+  const expiryArray = expiry.split('/');
+
   const tokenData = { 
     data: {
       attributes: {
@@ -13,8 +17,8 @@ router.post("/", function(request, response) {
           email: request.body.email,
         },
         number: request.body.number,
-        exp_month: parseInt(request.body.expiry),
-        exp_year: parseInt(request.body.year),
+        exp_month: parseInt(expiryArray[0]),
+        exp_year: parseInt(expiryArray[1]),
         cvc: request.body.cvc,
       }
     }
