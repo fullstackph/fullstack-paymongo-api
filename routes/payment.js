@@ -129,7 +129,6 @@ router.post("/", async function (request, response) {
               msg: "There was an error",
               payment_intent_data: paymentIntentData,
               payment_intent_attach_data: paymentIntentAttach,
-              
             },
           });
           // The PaymentIntent encountered a processing error. You can refer to paymentIntent.attributes.last_payment_error to check the error and render the appropriate error message.
