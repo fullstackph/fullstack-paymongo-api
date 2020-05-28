@@ -91,36 +91,45 @@ router.post("/", async function (request, response) {
           },
         },
       };
+      const paymentIntentData = result.data;
       const paymentIntentID = result.data.id;
       const resultAttach = await paymongo.paymentIntents.attach(
         paymentIntentID,
         paymentAttachData
       );
       if (resultAttach) {
-        var paymentIntent = resultAttach.data;
-        var paymentIntentStatus = paymentIntent.attributes.status;
+        var paymentIntentAttach = resultAttach.data;
 
-        if (paymentIntentStatus === "awaiting_next_action") {
+        var paymentIntentAttachStatus = paymentIntentAttach.attributes.status;
+
+        if (paymentIntentAttachStatus === "awaiting_next_action") {
           response.json({
             data: {
               status: "warning",
               msg: "Requesting for 3ds",
+              payment_intent_data: paymentIntentData,
+              payment_intent_attach_data: paymentIntentAttach,
             },
           });
           // render your modal for 3D Secure Authentication since next_action has a value. You can access the next action via paymentIntent.attributes.next_action.
-        } else if (paymentIntentStatus === "succeeded") {
+        } else if (paymentIntentAttachStatus === "succeeded") {
           response.json({
             data: {
               status: "success",
               msg: "Payment Received",
+              payment_intent_data: paymentIntentData,
+              payment_intent_attach_data: paymentIntentAttach,
             },
           });
           // You already received your customer's payment. You can show a success message from this condition.
-        } else if (paymentIntentStatus === "awaiting_payment_method") {
+        } else if (paymentIntentAttachStatus === "awaiting_payment_method") {
           response.json({
             data: {
               status: "error",
               msg: "There was an error",
+              payment_intent_data: paymentIntentData,
+              payment_intent_attach_data: paymentIntentAttach,
+              
             },
           });
           // The PaymentIntent encountered a processing error. You can refer to paymentIntent.attributes.last_payment_error to check the error and render the appropriate error message.
