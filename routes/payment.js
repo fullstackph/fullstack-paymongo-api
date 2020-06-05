@@ -137,6 +137,13 @@ router.post("/", async function (request, response) {
     }
   } catch (error) {
     console.log(error);
+    response.json({
+      data: {
+        status: "error",
+        msg: "There was an error",
+        error_data: error,
+      },
+    });
   }
 });
 
